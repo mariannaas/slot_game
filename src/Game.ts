@@ -2,25 +2,29 @@ import * as PIXI from "pixi.js";
 import {ServerResponse} from "./api/ServerResponse";
 import {SlotReel} from "./components/SlotReel";
 import {Button} from "./components/Button";
+import {Application} from "pixi.js";
 
 export class Game {
-    private app: PIXI.Application;
+    private app!: PIXI.Application;
     private serverResponse: ServerResponse;
-    private slotReel: SlotReel;
+    private slotReel!: SlotReel;
 
     constructor() {
-        this.app = new PIXI.Application(
-            {
-                width: 800,
-                height: 600,
-                backgroundColor: 0x1099bb,
-            }
-        );
-        document.body.appendChild(this.app.canvas as HTMLCanvasElement);
-
         this.serverResponse = new ServerResponse();
-        this.slotReel = new SlotReel();
+        this.init();
+    }
 
+    private async init() {
+        this.app = new Application();
+        await this.app.init({
+            width: 800,
+            height: 600,
+            backgroundColor: 0x1099bb,
+        });
+
+        document.body.appendChild(this.app.renderer.view.canvas as HTMLCanvasElement);
+
+        this.slotReel = new SlotReel();
         this.slotReel.x = 200;
         this.slotReel.y = 200;
         this.app.stage.addChild(this.slotReel);
