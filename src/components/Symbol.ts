@@ -7,7 +7,7 @@ export class Symbol extends PIXI.Container {
 
         const graphic = new PIXI.Graphics();
         graphic.fill({ color: 0xffffff * Math.random() }).rect(0, 0, 100, 100);
-
+ //test
         const txt = new PIXI.Text({
             text: symbol,
             style: {
